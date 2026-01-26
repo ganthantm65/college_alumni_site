@@ -15,6 +15,11 @@ const User={
         const sql='SELECT * FROM users WHERE user_name=? AND USER_ROLE="ADMIN"';
         const [result]=await db.query(sql,user_name);
         return result[0];
+    },
+    findUserById:async(user_id)=>{
+        const sql='SELECT * FROM users WHERE user_id=? AND USER_ROLE="ALUMNI"'
+        const [result]=await db.query(sql,user_id);
+        return result[0];
     }
 }
 

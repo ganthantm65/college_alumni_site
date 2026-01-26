@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 
 export const validateJWT=async(req,res,next)=>{
-    const token=req.headers('Authorization')?.replace('Bearer ','');
+    const token=req.header('Authorization')?.replace('Bearer ','');
 
     if(!token){
         return res.status(401).json({message:"Token is not provided"});
