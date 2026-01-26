@@ -6,7 +6,7 @@ import { getAllRegistrations, registerEvent } from '../controller/eventRegistrat
 const eventRoutes=Router();
 
 eventRoutes.post("/create",validateJWT,createEvents);
-eventRoutes.get("/get",validateJWT,getAllEvents);
+eventRoutes.get("/get",getAllEvents);
 eventRoutes.post("/register",validateJWT,registerEvent);
 eventRoutes.get("/get/registrations",validateJWT,getAllRegistrations);
 

@@ -9,7 +9,10 @@ export const validateJWT=async(req,res,next)=>{
 
     try {
         const decoded=jwt.verify(token,process.env.JWT_SECRET);
-        req.user_id=decoded.user_id;
+        req.user = {
+            user_id: decoded.id,
+            user_name: decoded.user_name
+        };
 
         next();
     } catch (error) {
