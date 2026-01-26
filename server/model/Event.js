@@ -26,6 +26,12 @@ const Event={
         const sql_query='SELECT * FROM events';
         const [result]=await db.query(sql_query);
         return result;
+    },
+
+    getEventWithEventName:async(event_name)=>{
+        const sql_query='SELECT * FROM events WHERE title=?';
+        const [result]=await db.query(sql_query,event_name);
+        return result[0];
     }
 }
 
