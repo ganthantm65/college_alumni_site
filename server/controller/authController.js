@@ -30,7 +30,7 @@ export const loginUser=async(req,res)=>{
 
         const existing=await User.findUser(user_name);
 
-        if (!existing) {
+        if (existing.length==0) {
             return res.status(404).json({message:"Invalid Username"});
         }
 
@@ -38,7 +38,7 @@ export const loginUser=async(req,res)=>{
 
         if (!isPassWordVerified) {
             return res.status(400).json({message:"Invalid Password"});
-        }
+        }        
 
         const token=jwt.sign({id:existing.user_id,user_name:existing.user_name},process.env.JWT_SECRET,{expiresIn:'1h'});
 
@@ -54,28 +54,30 @@ export const loginUser=async(req,res)=>{
 
 export const loginAdmin=async(req,res)=>{
     try {
-        const {user_name,pass_word,user_role}=req.body;
+        const {user_name,pass_word,user_role}=req.body
+        const existing=await User.findUser(user_name);
 
-        const existingAdmin=await User.findAdmin(user_name);
-
-        if(!existingAdmin){
-            return res.status(404).json({message:"Username not found"});
+        if (existing.length==0) {
+            return res.status(404).json({message:"Invalid Username"});
         }
 
-        const isVerified =await bcrypt.compare(pass_word,existingAdmin.pass_word);
+        const isPassWordVerified=await bcrypt.compare(pass_word,existing.pass_word);
 
-        if (!isVerified) {
+        if (!isPassWordVerified) {
             return res.status(400).json({message:"Invalid Password"});
         }
 
-        const token=jwt.sign({id:existingAdmin.user_id,user_name:existingAdmin.user_name},process.env.JWT_SECRET,{expiresIn:'1h'});
+        console.log(process.env.JWT_SECRET);
+        
+
+        const token=jwt.sign({id:existing.user_id,user_name:existing.user_name},process.env.JWT_SECRET,{expiresIn:'1h'});
 
         return res.status(200).json({
-            token,
-            user:{user_id:existingAdmin.user_id,user_name:existingAdmin.user_name},
-            message:"Login Successfully"
+            token:token,
+            user:{user_id:existing.user_id,user_name:existing.user_name},
+            message:'Login Successfully'
         })
     } catch (error) {
-        return res.status(400).json({message:error.message});
+        
     }
 }

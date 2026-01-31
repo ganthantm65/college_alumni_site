@@ -27,6 +27,11 @@ const AlumniProfile={
         ];
         const [result]=await db.query(sql_query,values);
         return result;
+    },
+    getAlumniProfiles:async()=>{
+        const sql='SELECT * FROM alumni_profiles;'
+        const [result]=await db.query(sql);
+        return result;
     }
 }
 

@@ -18,3 +18,15 @@ export const createAlumniProfile=async(req,res)=>{
         res.status(400).json({message:error.message});
     }
 }
+
+export const getAlumniDetails=async(req,res)=>{
+    try {
+        const alumniProfiles=await AlumniProfile.getAlumniProfiles();
+        if(alumniProfiles.length<1){
+            return res.status(404).json({message:"No Alumni Profile Found"})
+        }
+        return res.status(200).json({alumni_profiles:alumniProfiles})
+    } catch (error) {
+        return res.status(400).json({message:error.message});
+    }
+}

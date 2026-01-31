@@ -4,7 +4,7 @@ import EventRegistration from '../model/EventRegistration.js'
 
 export const registerEvent=async(req,res)=>{
     try {
-        const {event_name,user_id}=req.body;
+        const {event_name}=req.body;
 
         const event=await Event.getEventWithEventName(event_name);
 
@@ -22,7 +22,7 @@ export const registerEvent=async(req,res)=>{
             return res.status(403).json({ message: "Registration is Closed" });
         }
 
-        await EventRegistration.registerEvent(event.event_id,user_id);
+        await EventRegistration.registerEvent(event.event_id,req.user.user_id);
 
         return res.status(201).json({message:"Registered successfully"});
     } catch (error) {
