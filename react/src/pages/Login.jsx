@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import college from "../assets/home-page-images/college.jpg";
 import { useNavigate } from "react-router-dom";
+import { Eye, EyeClosed, EyeOff } from "lucide-react";
 
 const Login = () => {
   const [userName, setUserName] = useState("");
@@ -101,11 +102,15 @@ const Login = () => {
               />
               <button
                 type="button"
-                className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                className="absolute inset-y-0 top-5 right-0 pr-3 flex items-center"
                 onClick={() => setShowPassword(!showPassword)}
                 disabled={isLoading}
               >
-                {showPassword ? "Hide" : "Show"}
+                {showPassword ? (
+                  <Eye size={25} className="text-gray-400"/>
+                ) : (
+                  <EyeOff size={25} className="text-gray-400"/>
+                )}
               </button>
             </div>
             <button

@@ -1,13 +1,20 @@
-import express, { Router } from 'express';
-import { validateJWT } from '../middleware/jwtValidation.js';
-import { createEvents,getAllEvents } from '../controller/eventController.js';
-import { getAllRegistrations, registerEvent } from '../controller/eventRegistrationController.js';
+import express, { Router } from "express";
+import { validateJWT } from "../middleware/jwtValidation.js";
+import {
+  createEvents,
+  getUpcomingEvents,
+  getCompletedEvents,
+  updateEventCoverPhoto,
+  updateStatus,
+} from "../controller/eventController.js";
+import uploadFile from "../middleware/uploadFile.js";
 
-const eventRoutes=Router();
+const eventRoutes = Router();
 
-eventRoutes.post("/create",validateJWT,createEvents);
-eventRoutes.get("/get",getAllEvents);
-eventRoutes.post("/register",validateJWT,registerEvent);
-eventRoutes.get("/get/registrations",validateJWT,getAllRegistrations);
+eventRoutes.post("/create", validateJWT, uploadFile.single("cover_photo"), createEvents);
+eventRoutes.put("/update/cover", validateJWT, uploadFile.single("cover_photo"), updateEventCoverPhoto);
+eventRoutes.post("/update/status", validateJWT, updateStatus);
+eventRoutes.get("/get/upcoming", getUpcomingEvents);
+eventRoutes.get("/get/completed", getCompletedEvents);
 
 export default eventRoutes;

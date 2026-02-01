@@ -17,7 +17,7 @@ const Announcements={
         const [results]=await db.query(sql_query,values);
     },
     getAllAnnouncements:async()=>{
-        const sql_query='SELECT announcement_id,title,content FROM announcements';
+        const sql_query='SELECT * FROM announcements';
 
         const [results]=await db.query(sql_query);
 

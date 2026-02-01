@@ -8,7 +8,8 @@ import {
   HandCoins,
   User,
   Menu,
-  X
+  X,
+  Newspaper
 } from "lucide-react";
 
 import logo from "../assets/logo.jpeg";
@@ -20,6 +21,7 @@ function NavBar() {
     { name: "Home", icon: Home, path: "/" },
     { name: "About", icon: Info, path: "/about" },
     { name: "Alumni", icon: Users, path: "/alumni" },
+    { name:"Announcements" ,icon:Newspaper,path:"/announcements"},
     { name: "Events", icon: CalendarDays, path: "/events" },
     { name: "Gallery", icon: Image, path: "/gallery" },
     { name: "Donate", icon: HandCoins, path: "/donate" }
@@ -28,6 +30,20 @@ function NavBar() {
   const navigate = useNavigate();
   const [isTokenAvailable, setIsTokenAvailable] = useState(false);
   const [open, setOpen] = useState(false);
+
+  useEffect(()=>{
+    const token=localStorage.getItem('Token');
+    if(!token || isTokenExpired(token)){
+      localStorage.clear();
+    }
+  },[])
+
+  const isTokenExpired = token => {
+    if (!token) return true
+    const payload = JSON.parse(atob(token.split('.')[1]))
+    return payload.exp * 1000 < Date.now()
+  }
+
 
   useEffect(() => {
     setIsTokenAvailable(!localStorage.getItem("Token"));
