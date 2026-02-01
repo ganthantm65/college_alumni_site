@@ -55,7 +55,12 @@ export const loginUser=async(req,res)=>{
 export const loginAdmin=async(req,res)=>{
     try {
         const {user_name,pass_word,user_role}=req.body
-        const existing=await User.findUser(user_name);
+
+        if(user_role!="ADMIN" || !user_role){
+            return res.status(403).json({message:"Invalid User Role"});
+        }
+
+        const existing=await User.findAdmin(user_name);
 
         if (existing.length==0) {
             return res.status(404).json({message:"Invalid Username"});
@@ -66,8 +71,6 @@ export const loginAdmin=async(req,res)=>{
         if (!isPassWordVerified) {
             return res.status(400).json({message:"Invalid Password"});
         }
-
-        console.log(process.env.JWT_SECRET);
         
 
         const token=jwt.sign({id:existing.user_id,user_name:existing.user_name},process.env.JWT_SECRET,{expiresIn:'1h'});
@@ -78,6 +81,6 @@ export const loginAdmin=async(req,res)=>{
             message:'Login Successfully'
         })
     } catch (error) {
-        
+            return res.status(400).json({message:error.message});
     }
 }

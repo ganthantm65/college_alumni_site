@@ -4,8 +4,9 @@ import HomePage from './pages/HomePage.jsx'
 import Login from "./pages/Login.jsx"
 import Announcements from "./pages/Announcements.jsx"
 import Events from "./pages/Events.jsx"
-import Gallery from "./pages/Gallery.jsx"
 import Donation from "./pages/Donation.jsx"
+import GalleryAdmin from "./pages/Gallery.jsx"
+import Gallery from "./pages/Gallery.jsx"
 
 
 function App() {
