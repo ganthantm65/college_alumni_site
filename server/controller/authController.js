@@ -14,9 +14,14 @@ export const registerUser=async(req,res)=>{
 
         const hashedPassword=bcrypt.hashSync(pass_word,10);
 
-        await User.createUser([user_name,hashedPassword,user_role]);
+        const user=await User.createUser([user_name,hashedPassword,user_role]);
+        const token=jwt.sign({id:user.user_id,user_name:user.user_name},process.env.JWT_SECRET,{expiresIn:'1h'});
 
-        return res.status(200).json({message:"User Registred Successfully"});
+        return res.status(200).json({
+            token:token,
+            user:{user_id:user.user_id,user_name:existing.user_name},
+            message:'Registered Successfully'
+        })
     } catch (error) {
         console.log(error);
         

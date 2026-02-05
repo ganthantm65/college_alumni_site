@@ -20,7 +20,6 @@ function NavBar() {
   const menuItems = [
     { name: "Home", icon: Home, path: "/" },
     { name: "About", icon: Info, path: "/about" },
-    { name: "Alumni", icon: Users, path: "/alumni" },
     { name:"Announcements" ,icon:Newspaper,path:"/announcements"},
     { name: "Events", icon: CalendarDays, path: "/events" },
     { name: "Gallery", icon: Image, path: "/gallery" },

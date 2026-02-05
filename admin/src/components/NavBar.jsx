@@ -19,7 +19,6 @@ import { useNavigate } from "react-router-dom";
 function NavBar() {
   const menuItems = [
     { name: "Home", icon: Home, path: "/" },
-    { name: "Alumni", icon: Users, path: "/alumni" },
     { name:"Announcements" ,icon:Newspaper,path:"/announcements"},
     { name: "Events", icon: CalendarDays, path: "/events" },
     { name: "Gallery", icon: Image, path: "/gallery" },

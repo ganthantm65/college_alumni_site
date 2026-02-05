@@ -3,6 +3,19 @@ import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 
+const Section = ({ id, title, openForm, setOpenForm, children }) => (
+  <div className="bg-white rounded-xl shadow">
+    <button
+      onClick={() => setOpenForm(openForm === id ? null : id)}
+      className="w-full flex justify-between items-center p-4 font-semibold text-blue-700"
+    >
+      {title}
+      <ChevronDown className={`transition ${openForm === id ? "rotate-180" : ""}`} />
+    </button>
+    {openForm === id && <div className="p-4 border-t">{children}</div>}
+  </div>
+);
+
 function GalleryAdmin() {
   const [albums, setAlbums] = useState([]);
   const [openForm, setOpenForm] = useState(null);
@@ -83,19 +96,6 @@ function GalleryAdmin() {
     fetchAlbums();
   };
 
-  const Section = ({ id, title, children }) => (
-    <div className="bg-white rounded-xl shadow">
-      <button
-        onClick={() => setOpenForm(openForm === id ? null : id)}
-        className="w-full flex justify-between items-center p-4 font-semibold text-blue-700"
-      >
-        {title}
-        <ChevronDown className={`transition ${openForm === id ? "rotate-180" : ""}`} />
-      </button>
-      {openForm === id && <div className="p-4 border-t">{children}</div>}
-    </div>
-  );
-
   return (
     <div className="w-full min-h-screen overflow-x-hidden bg-gray-50">
       <div className="w-full bg-gradient-to-r from-blue-900 to-blue-700">
@@ -117,26 +117,26 @@ function GalleryAdmin() {
       <NavBar />
 
       <div className="max-w-7xl mx-auto px-4 py-10 space-y-6">
-        <Section id="create" title="Create Album">
+        <Section id="create" title="Create Album" openForm={openForm} setOpenForm={setOpenForm}>
           <input className="w-full border p-2 mb-3 rounded" placeholder="Title" value={title} onChange={e => setTitle(e.target.value)} />
           <textarea className="w-full border p-2 mb-3 rounded" placeholder="Description" value={description} onChange={e => setDescription(e.target.value)} />
           <input type="file" multiple onChange={e => setImages([...e.target.files])} />
           <button onClick={createAlbum} className="mt-4 px-4 py-2 bg-blue-700 text-white rounded">Create</button>
         </Section>
 
-        <Section id="add" title="Add Images">
+        <Section id="add" title="Add Images" openForm={openForm} setOpenForm={setOpenForm}>
           <input className="w-full border p-2 mb-3 rounded" placeholder="Album Slug" value={slug} onChange={e => setSlug(e.target.value)} />
           <input type="file" multiple onChange={e => setImages([...e.target.files])} />
           <button onClick={addImages} className="mt-4 px-4 py-2 bg-blue-700 text-white rounded">Upload</button>
         </Section>
 
-        <Section id="update" title="Update Description">
+        <Section id="update" title="Update Description" openForm={openForm} setOpenForm={setOpenForm}>
           <input className="w-full border p-2 mb-3 rounded" placeholder="Album Slug" value={slug} onChange={e => setSlug(e.target.value)} />
           <textarea className="w-full border p-2 mb-3 rounded" placeholder="New Description" value={description} onChange={e => setDescription(e.target.value)} />
           <button onClick={updateDescription} className="px-4 py-2 bg-blue-700 text-white rounded">Update</button>
         </Section>
 
-        <Section id="rename" title="Rename Album">
+        <Section id="rename" title="Rename Album" openForm={openForm} setOpenForm={setOpenForm}>
           <input className="w-full border p-2 mb-3 rounded" placeholder="Old Slug" value={oldSlug} onChange={e => setOldSlug(e.target.value)} />
           <input className="w-full border p-2 mb-3 rounded" placeholder="New Title" value={newTitle} onChange={e => setNewTitle(e.target.value)} />
           <button onClick={renameAlbum} className="px-4 py-2 bg-blue-700 text-white rounded">Rename</button>

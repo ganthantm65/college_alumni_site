@@ -47,7 +47,9 @@ function HomePage() {
             Alumni Association
           </h2>
           <div className="flex gap-4 mt-4">
-            <button className="px-6 py-2 rounded-full bg-orange-500 hover:bg-orange-600 transition font-semibold text-white">
+            <button 
+            onClick={()=>navigate('/register')}
+            className="px-6 py-2 rounded-full bg-orange-500 hover:bg-orange-600 transition font-semibold text-white">
               Join Alumni
             </button>
             <button className="px-6 py-2 rounded-full border border-white/70 hover:bg-white/20 transition font-semibold backdrop-blur">

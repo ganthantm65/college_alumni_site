@@ -5,8 +5,9 @@ import Login from "./pages/Login.jsx"
 import Announcements from "./pages/Announcements.jsx"
 import Events from "./pages/Events.jsx"
 import Donation from "./pages/Donation.jsx"
-import GalleryAdmin from "./pages/Gallery.jsx"
 import Gallery from "./pages/Gallery.jsx"
+import Registeration from "./pages/Registration.jsx"
+import AboutUs from "./pages/AboutUs.jsx"
 
 
 function App() {
@@ -21,6 +22,8 @@ function App() {
           <Route path="/events" element={<Events/>}/>
           <Route path="/gallery" element={<Gallery/>}/>
           <Route path="/donate" element={<Donation/>}/>
+          <Route path="/register" element={<Registeration/>}/>
+          <Route path="/about" element={<AboutUs/>}/>
         </Routes>
       </BrowserRouter>
     </>
